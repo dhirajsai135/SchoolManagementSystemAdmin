@@ -1,0 +1,32 @@
+﻿@model List<StudentVM>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<table class="table table-borderless table-dark">
+    <thead>
+        <tr>
+            <th scope="col">Student Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Date of Birth</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Address</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Email</td>
+                <td>@item.Phone</td>
+                <td>@item.DateOfBirth.ToShortDateString()</td>
+                <td>@item.Gender</td>
+                <td>@item.Address</td>
+            </tr>
+        }
+
+    </tbody>
+</table>

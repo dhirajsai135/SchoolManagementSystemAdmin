@@ -1,13 +1,13 @@
 ﻿<div class="login-card">
     <div class="login-box">
         <div class="login-header">
-            <header>Login</header>
+            <header>User Login</header>
         </div>
         <div class="input-box">
-            <input type="email" class="input-field" placeholder="Email" autocomplete="off" required />
+            <input type="email" class="input-field" id="email" placeholder="Email" autocomplete="off"/>
         </div>
         <div class="input-box">
-            <input type="password" class="input-field" placeholder="Password" autocomplete="off" required />
+            <input type="password" class="input-field" id="password" placeholder="Password" autocomplete="off"/>
         </div>
         <div class="forgot">
             <section>
@@ -15,7 +15,7 @@
                 <label for="check">Remember me</label>
             </section>
             <section>
-                <a href="#">Forgor Password</a>
+                <a href="#">Forgot Password</a>
             </section>
         </div>
         <div class="input-submit">
@@ -28,3 +28,53 @@
     </div>
 
 </div>
+
+<script>
+    $("#submit").click(function () {
+
+        var emailValue = $("#email").val();
+        var password = $("#password").val();
+
+        if(emailValue === null || emailValue === undefined || emailValue === ""){
+            $("#popupMessage").text("Please enter valid mail id");
+            $('#custom-popup').modal('show');
+            return false;
+        }
+
+        if (password === null || password === undefined || password === "") {
+            $("#popupMessage").text("Please enter your password");
+            $('#custom-popup').modal('show');
+            return false;
+        }
+        var request = {
+            email: emailValue,
+            password: password
+        };
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Login","Login")',
+            data: JSON.stringify(request),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            beforeSend: function () {
+                $('#loading-indicator').modal('show');
+            },
+            success: function (result) {
+                $('#loading-indicator').modal('hide');
+                console.log(result);
+                if (result.isSuccessful === false) {
+                    $("#popupMessage").text(result.message);
+                    $('#custom-popup').modal('show');
+                    return false;
+                }
+               window.location.href='@Url.Action("Index","Home")'
+            },
+            error: function () {
+                $('#loading-indicator').modal('hide');
+                $("#popupMessage").text("Something went wrong");
+                $('#custom-popup').modal('show');
+                return false;
+            }
+        })
+    })
+</script>

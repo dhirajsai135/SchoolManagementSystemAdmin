@@ -1,9 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using SchoolManagementSystemAdmin.Models;
-using System.Text.Json;
-
-namespace SchoolManagementSystemAdmin.Controllers;
+﻿namespace SchoolManagementSystemAdmin.Controllers;
 
 public class HomeController : Controller
 {
